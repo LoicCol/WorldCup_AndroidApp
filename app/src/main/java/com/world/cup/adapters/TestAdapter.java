@@ -1,16 +1,14 @@
-package com.example.loiccol.worldcup.adapters;
+package com.world.cup.adapters;
 
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.loiccol.worldcup.R;
-import com.example.loiccol.worldcup.interfaces.OnRecyclerItemClick;
+import com.world.cup.R;
+import com.world.cup.interfaces.OnRecyclerItemClick;
 
 import java.util.List;
 

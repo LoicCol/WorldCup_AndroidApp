@@ -1,4 +1,4 @@
-package com.example.loiccol.worldcup.interfaces;
+package com.world.cup.interfaces;
 
 import android.view.View;
 

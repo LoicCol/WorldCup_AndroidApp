@@ -1,4 +1,4 @@
-package com.example.loiccol.worldcup;
+package com.world.cup;
 
 import org.junit.Test;
 

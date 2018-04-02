@@ -1,4 +1,4 @@
-package com.example.loiccol.worldcup;
+package com.world.cup;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
