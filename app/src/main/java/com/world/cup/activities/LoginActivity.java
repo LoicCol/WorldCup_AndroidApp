@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.world.cup.R;
-import com.world.cup.classes.Session;
+import com.world.cup.models.Session;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.content.ContentValues.TAG;

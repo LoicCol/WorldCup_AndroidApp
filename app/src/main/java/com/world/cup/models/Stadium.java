@@ -1,4 +1,4 @@
-package com.world.cup.classes;
+package com.world.cup.models;
 
 /**
  * Created by loiccol on 02/04/18.
