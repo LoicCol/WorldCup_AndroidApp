@@ -39,6 +39,15 @@ public class Match {
         this.stadium = stadium;
     }
 
+    public Match(Date dateTime, String group, Team team1, Team team2, int score1, int score2) {
+        this.dateTime = dateTime;
+        this.group = group;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.score1 = score1;
+        this.score2 = score2;
+    }
+
     public int getId() {
         return id;
     }
