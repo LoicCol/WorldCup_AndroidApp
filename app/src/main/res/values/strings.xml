@@ -14,6 +14,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!-- validation Errors -->
+    <string name="err_name">The name field is required.</string>
+    <string name="err_email">The email must be a valid email address.</string>
+    <string name="err_password">The password must be at least 6 characters.</string>
+
+    <string name="facebook_app_id">YOUR_APP_ID</string>
+    <string name="fb_login_protocol_scheme">YOUR_THING</string>
 
     <string name="dashboard">Dashboard</string>
     <string name="matchs">Matchs</string>

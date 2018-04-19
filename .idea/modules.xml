@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WorldCup.iml" filepath="$PROJECT_DIR$/WorldCup.iml" />
+      <module fileurl="file://C:\Users\Admin\Documents\Projet\WorldCup_AndroidApp\WorldCup.iml" filepath="C:\Users\Admin\Documents\Projet\WorldCup_AndroidApp\WorldCup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WorldCup_AndroidApp.iml" filepath="$PROJECT_DIR$/WorldCup_AndroidApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
