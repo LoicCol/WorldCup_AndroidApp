@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import com.world.cup.classes.AccessToken;
 import com.world.cup.classes.PostResponse;
+import com.world.cup.classes.UserResponse;
 
 public interface ApiService {
 
@@ -25,5 +26,8 @@ public interface ApiService {
 
     @GET("posts")
     Call<PostResponse> posts();
+
+    @GET("user")
+    Call<UserResponse> user();
 
 }
