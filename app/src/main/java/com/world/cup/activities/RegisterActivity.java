@@ -2,22 +2,17 @@ package com.world.cup.activities;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
-import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.world.cup.R;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +22,10 @@ import butterknife.OnClick;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Converter;
 import retrofit2.Response;
-import retrofit2.http.POST;
+
+import com.world.cup.R;
 import com.world.cup.classes.AccessToken;
 import com.world.cup.classes.ApiError;
 import com.world.cup.network.ApiService;
@@ -36,71 +33,59 @@ import com.world.cup.network.RetrofitBuilder;
 import com.world.cup.utils.TokenManager;
 import com.world.cup.utils.Utils;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "RegisterActivity";
 
+    @BindView(R.id.til_name)
+    TextInputLayout tilName;
+    @BindView(R.id.til_pseudo)
+    TextInputLayout tilPseudo;
     @BindView(R.id.til_email)
     TextInputLayout tilEmail;
     @BindView(R.id.til_password)
     TextInputLayout tilPassword;
-    @BindView(R.id.container)
-    RelativeLayout container;
-    @BindView(R.id.form_container)
-    LinearLayout formContainer;
-    @BindView(R.id.loader)
-    ProgressBar loader;
 
     ApiService service;
-    TokenManager tokenManager;
-    AwesomeValidation validator;
     Call<AccessToken> call;
+    AwesomeValidation validator;
+    TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         ButterKnife.bind(this);
 
         service = RetrofitBuilder.createService(ApiService.class);
-        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         validator = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         setupRules();
 
-        tokenManager.deleteToken();
         if(tokenManager.getToken().getAccessToken() != null){
-            startActivity(new Intent(LoginActivity.this, PostActivity.class));
+            startActivity(new Intent(RegisterActivity.this, PostActivity.class));
             finish();
         }
     }
 
-    private void showLoading(){
-        TransitionManager.beginDelayedTransition(container);
-        formContainer.setVisibility(View.GONE);
-        loader.setVisibility(View.VISIBLE);
-    }
+    @OnClick(R.id.btn_register)
+    void register(){
 
-    private void showForm(){
-        TransitionManager.beginDelayedTransition(container);
-        formContainer.setVisibility(View.VISIBLE);
-        loader.setVisibility(View.GONE);
-    }
-
-    @OnClick(R.id.btn_login)
-    void login() {
-
+        String name = tilName.getEditText().getText().toString();
+        String pseudo = tilPseudo.getEditText().getText().toString();
         String email = tilEmail.getEditText().getText().toString();
         String password = tilPassword.getEditText().getText().toString();
 
+        tilName.setError(null);
+        tilPseudo.setError(null);
         tilEmail.setError(null);
         tilPassword.setError(null);
 
         validator.clear();
 
-        if (validator.validate()) {
-            showLoading();
-            call = service.login(email, password);
+        if(validator.validate()) {
+            call = service.register(name, pseudo, email, password, password);
             call.enqueue(new Callback<AccessToken>() {
                 @Override
                 public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
@@ -108,18 +93,12 @@ public class LoginActivity extends AppCompatActivity {
                     Log.w(TAG, "onResponse: " + response);
 
                     if (response.isSuccessful()) {
+                        Log.w(TAG, "onResponse: " + response.body() );
                         tokenManager.saveToken(response.body());
-                        startActivity(new Intent(LoginActivity.this, PostActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, PostActivity.class));
                         finish();
                     } else {
-                        if (response.code() == 422) {
-                            handleErrors(response.errorBody());
-                        }
-                        if (response.code() == 401) {
-                            ApiError apiError = Utils.converErrors(response.errorBody());
-                            Toast.makeText(LoginActivity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                        showForm();
+                        handleErrors(response.errorBody());
                     }
 
                 }
@@ -127,49 +106,46 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<AccessToken> call, Throwable t) {
                     Log.w(TAG, "onFailure: " + t.getMessage());
-                    showForm();
                 }
             });
-
         }
-
     }
 
-    @OnClick(R.id.go_to_register)
+    @OnClick(R.id.go_to_login)
     void goToRegister(){
-        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
     }
 
-    private void handleErrors(ResponseBody response) {
+
+    private void handleErrors(ResponseBody response){
 
         ApiError apiError = Utils.converErrors(response);
 
-        for (Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()) {
-            if (error.getKey().equals("username")) {
+        for(Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
+            if(error.getKey().equals("name")){
+                tilName.setError(error.getValue().get(0));
+            }
+            if(error.getKey().equals("email")){
                 tilEmail.setError(error.getValue().get(0));
             }
-            if (error.getKey().equals("password")) {
+            if(error.getKey().equals("password")){
                 tilPassword.setError(error.getValue().get(0));
             }
         }
 
     }
 
-    public void setupRules() {
+    public void setupRules(){
 
+        validator.addValidation(this, R.id.til_name, RegexTemplate.NOT_EMPTY, R.string.err_name);
         validator.addValidation(this, R.id.til_email, Patterns.EMAIL_ADDRESS, R.string.err_email);
-        validator.addValidation(this, R.id.til_password, RegexTemplate.NOT_EMPTY, R.string.err_password);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        validator.addValidation(this, R.id.til_password, "[a-zA-Z0-9]{6,}", R.string.err_password);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (call != null) {
+        if(call != null) {
             call.cancel();
             call = null;
         }
