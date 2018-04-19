@@ -14,7 +14,7 @@ import com.world.cup.utils.TokenManager;
 
 public class RetrofitBuilder {
 
-    private static final String BASE_URL = "http://192.168.56.1:8000/api/";
+    private static final String BASE_URL = "http://192.168.43.57:8000/api/";
 
     private final static OkHttpClient client = buildClient();
     private final static Retrofit retrofit = buildRetrofit(client);
@@ -29,7 +29,6 @@ public class RetrofitBuilder {
                         Request.Builder builder = request.newBuilder()
                                 .addHeader("Accept", "application/json")
                                 .addHeader("Connection", "close");
-
                         request = builder.build();
 
                         return chain.proceed(request);

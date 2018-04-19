@@ -10,13 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import com.world.cup.R;
 import com.world.cup.adapters.TestAdapter;
 import com.world.cup.interfaces.OnRecyclerItemClick;
 import com.world.cup.models.Match;
-import com.world.cup.models.Session;
 import com.world.cup.models.Team;
+import com.world.cup.utils.TokenManager;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -36,9 +37,11 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     AppBarLayout appbar;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.disconnect)
+    Button disconnect;
 
     private List<Match> test;
-    private Session session;
+    private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +50,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
         ButterKnife.bind(this);
 
         // Init session
-        session = new Session(this.getApplicationContext());
-
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         toolbar.setTitle(R.string.app_name);
         toolbar.setSubtitle("Nom du joueur");
         toolbar.setNavigationIcon(R.drawable.ic_launcher_foreground);
@@ -66,7 +68,14 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
         TestAdapter adapter = new TestAdapter(test, this);
         recyclerView.setAdapter(adapter);
 
-
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tokenManager.deleteToken();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
         /* tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -94,7 +103,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     @Override
     public void onResume() {
         super.onResume();
-        if (session.getUserId() != null && !session.getUserId().isEmpty()) {
+        if (tokenManager.getToken().getAccessToken() != null) {
 
         } else {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -105,7 +114,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     @Override
     public void onStart() {
         super.onStart();
-        if (session.getUserId() != null && !session.getUserId().isEmpty()) {
+        if (tokenManager.getToken().getAccessToken() != null) {
 
         } else {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

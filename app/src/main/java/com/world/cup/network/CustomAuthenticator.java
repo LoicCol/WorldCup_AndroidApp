@@ -1,5 +1,7 @@
 package com.world.cup.network;
 
+import android.support.annotation.Nullable;
+
 import java.io.IOException;
 
 import okhttp3.Authenticator;
@@ -27,7 +29,7 @@ public class CustomAuthenticator implements Authenticator {
         return INSTANCE;
     }
 
-
+    @Nullable
     @Override
     public Request authenticate(Route route, Response response) throws IOException {
 

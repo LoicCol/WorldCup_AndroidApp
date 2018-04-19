@@ -59,7 +59,6 @@ public class PostActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     title.setText(response.body().getData().get(0).getTitle());
                 }else {
-                    tokenManager.deleteToken();
                     startActivity(new Intent(PostActivity.this, LoginActivity.class));
                     finish();
 

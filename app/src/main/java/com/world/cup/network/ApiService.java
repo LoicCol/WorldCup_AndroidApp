@@ -25,5 +25,4 @@ public interface ApiService {
 
     @GET("posts")
     Call<PostResponse> posts();
-
 }
