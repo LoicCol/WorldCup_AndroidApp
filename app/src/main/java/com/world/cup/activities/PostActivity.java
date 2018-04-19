@@ -58,7 +58,7 @@ public class PostActivity extends AppCompatActivity {
                 Log.w(TAG, "onResponse: " + response );
 
                 if(response.isSuccessful()){
-                    title.setText(response.body().getData().get(0).getName());
+                    title.setText(response.body().getData().getName());
                 }else {
                     startActivity(new Intent(PostActivity.this, LoginActivity.class));
                     finish();

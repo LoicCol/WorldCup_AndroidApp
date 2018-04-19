@@ -8,9 +8,9 @@ import java.util.List;
 
 public class UserResponse {
 
-    List<User> data;
+    User data;
 
-    public List<User> getData() {
+    public User getData() {
         return data;
     }
 }
