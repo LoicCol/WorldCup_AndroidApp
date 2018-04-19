@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         tokenManager.deleteToken();
         if(tokenManager.getToken().getAccessToken() != null){
-            startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+            startActivity(new Intent(LoginActivity.this, PostActivity.class));
             finish();
         }
     }
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()) {
                         tokenManager.saveToken(response.body());
-                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                        startActivity(new Intent(LoginActivity.this, PostActivity.class));
                         finish();
                     } else {
                         if (response.code() == 422) {
