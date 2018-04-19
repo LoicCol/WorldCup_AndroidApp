@@ -25,4 +25,5 @@
     <string name="dashboard">Dashboard</string>
     <string name="matchs">Matchs</string>
     <string name="pronostics">Pronostiques</string>
+    <string name="disconnect">X</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.world.cup.activities;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         setupRules();
 
         if(tokenManager.getToken().getAccessToken() != null){
-            startActivity(new Intent(RegisterActivity.this, PostActivity.class));
+            startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
             finish();
         }
     }
@@ -86,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(validator.validate()) {
             call = service.register(name, pseudo, email, password, password);
+            Log.v(TAG, "call Register: " + call.toString());
             call.enqueue(new Callback<AccessToken>() {
                 @Override
                 public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
@@ -95,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Log.w(TAG, "onResponse: " + response.body() );
                         tokenManager.saveToken(response.body());
-                        startActivity(new Intent(RegisterActivity.this, PostActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                         finish();
                     } else {
                         handleErrors(response.errorBody());
@@ -121,15 +123,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         ApiError apiError = Utils.converErrors(response);
 
-        for(Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
-            if(error.getKey().equals("name")){
-                tilName.setError(error.getValue().get(0));
-            }
-            if(error.getKey().equals("email")){
-                tilEmail.setError(error.getValue().get(0));
-            }
-            if(error.getKey().equals("password")){
-                tilPassword.setError(error.getValue().get(0));
+        if (apiError != null && apiError.getErrors() != null) {
+            for(Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
+                if(error.getKey().equals("name")){
+                    tilName.setError(error.getValue().get(0));
+                }
+                if(error.getKey().equals("email")){
+                    tilEmail.setError(error.getValue().get(0));
+                }
+                if(error.getKey().equals("password")){
+                    tilPassword.setError(error.getValue().get(0));
+                }
             }
         }
 
