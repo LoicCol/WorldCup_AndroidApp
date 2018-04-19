@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.world.cup.R;
 import com.world.cup.interfaces.OnRecyclerItemClick;
+import com.world.cup.models.Match;
 
 import java.util.List;
 
@@ -20,10 +22,10 @@ import butterknife.ButterKnife;
  */
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
-    private List<String> mTeamList;
+    private List<Match> mTeamList;
     private static OnRecyclerItemClick mRecyclerItemClickListener;
 
-    public TestAdapter(List<String> teamList, OnRecyclerItemClick recyclerItemClick) {
+    public TestAdapter(List<Match> teamList, OnRecyclerItemClick recyclerItemClick) {
         mTeamList = teamList;
         mRecyclerItemClickListener = recyclerItemClick;
     }
@@ -32,13 +34,17 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.test, parent, false);
+                .inflate(R.layout.match_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
-        holder.test.setText(mTeamList.get(position));
+        holder.team1.setText(mTeamList.get(position).getTeam1().getName());
+        holder.team2.setText(mTeamList.get(position).getTeam2().getName());
+        holder.team1Img.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.team2Img.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.date.setText(mTeamList.get(position).getDateTime().toString());
     }
 
     @Override
@@ -46,11 +52,19 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         return mTeamList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener, View.OnLongClickListener{
-        @BindView(R.id.test)
-        TextView test;
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-
+        @BindView(R.id.team1)
+        TextView team1;
+        @BindView(R.id.team2)
+        TextView team2;
+        @BindView(R.id.team1_img)
+        ImageView team1Img;
+        @BindView(R.id.team2_img)
+        ImageView team2Img;
+        TextView score;
+        @BindView(R.id.date)
+        TextView date;
 
         ViewHolder(View view) {
             super(view);

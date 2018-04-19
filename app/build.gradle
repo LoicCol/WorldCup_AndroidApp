@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
+    buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "com.world.cup"
         minSdkVersion 19
@@ -9,6 +10,7 @@ android {
         versionCode 2
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {

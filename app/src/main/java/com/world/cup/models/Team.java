@@ -1,4 +1,6 @@
-package com.world.cup.classes;
+package com.world.cup.models;
+
+import android.widget.TextView;
 
 /**
  * Created by loiccol on 02/04/18.
@@ -17,6 +19,10 @@ public class Team {
         this.group = group;
         this.logoCode = logoCode;
         this.points = points;
+    }
+
+    public Team(String name) {
+        this.name = name;
     }
 
     public int getId() {
