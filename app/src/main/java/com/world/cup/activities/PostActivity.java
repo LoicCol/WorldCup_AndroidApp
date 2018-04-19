@@ -15,6 +15,7 @@ import retrofit2.Response;
 
 import com.world.cup.R;
 import com.world.cup.classes.PostResponse;
+import com.world.cup.classes.UserResponse;
 import com.world.cup.network.ApiService;
 import com.world.cup.network.RetrofitBuilder;
 import com.world.cup.utils.TokenManager;
@@ -28,7 +29,7 @@ public class PostActivity extends AppCompatActivity {
 
     ApiService service;
     TokenManager tokenManager;
-    Call<PostResponse> call;
+    Call<UserResponse> call;
 
 
     @Override
@@ -50,14 +51,14 @@ public class PostActivity extends AppCompatActivity {
     @OnClick(R.id.btn_posts)
     void getPosts(){
 
-        call = service.posts();
-        call.enqueue(new Callback<PostResponse>() {
+        call = service.user();
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 Log.w(TAG, "onResponse: " + response );
 
                 if(response.isSuccessful()){
-                    title.setText(response.body().getData().get(0).getTitle());
+                    title.setText(response.body().getData().get(0).getName());
                 }else {
                     startActivity(new Intent(PostActivity.this, LoginActivity.class));
                     finish();
@@ -66,7 +67,7 @@ public class PostActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PostResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage() );
             }
         });
