@@ -1,7 +1,6 @@
 package com.world.cup.activities;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +11,6 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 
@@ -23,12 +20,11 @@ import butterknife.OnClick;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import com.world.cup.R;
-import com.world.cup.classes.AccessToken;
-import com.world.cup.classes.ApiError;
+import com.world.cup.models.AccessToken;
+import com.world.cup.models.ApiError;
 import com.world.cup.network.ApiService;
 import com.world.cup.network.RetrofitBuilder;
 import com.world.cup.utils.TokenManager;

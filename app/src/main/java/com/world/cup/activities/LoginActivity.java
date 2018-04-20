@@ -17,7 +17,6 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.world.cup.R;
-import com.world.cup.models.Session;
 
 import java.util.List;
 import java.util.Map;
@@ -29,9 +28,9 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.POST;
-import com.world.cup.classes.AccessToken;
-import com.world.cup.classes.ApiError;
+
+import com.world.cup.models.AccessToken;
+import com.world.cup.models.ApiError;
 import com.world.cup.network.ApiService;
 import com.world.cup.network.RetrofitBuilder;
 import com.world.cup.utils.TokenManager;

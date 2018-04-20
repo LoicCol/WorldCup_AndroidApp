@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.world.cup.R;
 import com.world.cup.adapters.TestAdapter;
@@ -38,7 +38,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.disconnect)
-    Button disconnect;
+    ImageButton disconnect;
 
     private List<Match> test;
     private TokenManager tokenManager;

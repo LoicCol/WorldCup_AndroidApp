@@ -1,6 +1,4 @@
-package com.world.cup.classes;
-
-import com.squareup.moshi.Json;
+package com.world.cup.models;
 
 import java.util.List;
 import java.util.Map;

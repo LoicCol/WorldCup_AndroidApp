@@ -1,10 +1,8 @@
-package com.world.cup.classes;
+package com.world.cup.models;
 
 /**
  * Created by Admin on 19/04/2018.
  */
-
-import java.util.List;
 
 public class UserResponse {
 

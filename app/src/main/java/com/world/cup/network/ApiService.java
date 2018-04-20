@@ -5,9 +5,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import com.world.cup.classes.AccessToken;
-import com.world.cup.classes.PostResponse;
-import com.world.cup.classes.UserResponse;
+import com.world.cup.models.AccessToken;
+import com.world.cup.models.PostResponse;
+import com.world.cup.models.UserResponse;
 
 public interface ApiService {
 

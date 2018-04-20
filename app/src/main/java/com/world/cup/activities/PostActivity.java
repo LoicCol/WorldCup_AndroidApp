@@ -14,8 +14,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.world.cup.R;
-import com.world.cup.classes.PostResponse;
-import com.world.cup.classes.UserResponse;
+import com.world.cup.models.UserResponse;
 import com.world.cup.network.ApiService;
 import com.world.cup.network.RetrofitBuilder;
 import com.world.cup.utils.TokenManager;

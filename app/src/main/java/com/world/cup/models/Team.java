@@ -1,7 +1,5 @@
 package com.world.cup.models;
 
-import android.widget.TextView;
-
 /**
  * Created by loiccol on 02/04/18.
  */
