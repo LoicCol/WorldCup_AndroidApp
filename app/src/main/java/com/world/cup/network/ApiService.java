@@ -5,9 +5,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import com.world.cup.models.AccessToken;
-import com.world.cup.models.PostResponse;
-import com.world.cup.models.UserResponse;
+import com.world.cup.entities.AccessToken;
+import com.world.cup.responses.GamesResponse;
+import com.world.cup.responses.PostResponse;
+import com.world.cup.responses.UserResponse;
 
 public interface ApiService {
 
@@ -29,5 +30,8 @@ public interface ApiService {
 
     @GET("user")
     Call<UserResponse> user();
+
+    @GET("games")
+    Call<GamesResponse> games();
 
 }

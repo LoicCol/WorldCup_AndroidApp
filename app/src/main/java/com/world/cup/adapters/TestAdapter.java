@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.world.cup.R;
 import com.world.cup.interfaces.OnRecyclerItemClick;
-import com.world.cup.models.Match;
+import com.world.cup.entities.Game;
 
 import java.util.List;
 
@@ -22,10 +22,10 @@ import butterknife.ButterKnife;
  */
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
-    private List<Match> mTeamList;
+    private List<Game> mTeamList;
     private static OnRecyclerItemClick mRecyclerItemClickListener;
 
-    public TestAdapter(List<Match> teamList, OnRecyclerItemClick recyclerItemClick) {
+    public TestAdapter(List<Game> teamList, OnRecyclerItemClick recyclerItemClick) {
         mTeamList = teamList;
         mRecyclerItemClickListener = recyclerItemClick;
     }
@@ -40,8 +40,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
-        holder.team1.setText(mTeamList.get(position).getTeam1().getName());
-        holder.team2.setText(mTeamList.get(position).getTeam2().getName());
+        holder.team1.setText(mTeamList.get(position).getHomeTeam().getName());
+        holder.team2.setText(mTeamList.get(position).getAwayTeam().getName());
         holder.team1Img.setImageResource(R.drawable.ic_launcher_foreground);
         holder.team2Img.setImageResource(R.drawable.ic_launcher_foreground);
         holder.date.setText(mTeamList.get(position).getDateTime().toString());

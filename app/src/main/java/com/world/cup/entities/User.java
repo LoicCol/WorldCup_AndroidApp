@@ -1,4 +1,4 @@
-package com.world.cup.models;
+package com.world.cup.entities;
 
 /**
  * Created by Admin on 19/04/2018.

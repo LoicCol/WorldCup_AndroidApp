@@ -1,4 +1,6 @@
-package com.world.cup.models;
+package com.world.cup.responses;
+
+import com.world.cup.entities.Post;
 
 import java.util.List;
 

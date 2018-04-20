@@ -2,7 +2,7 @@ package com.world.cup.utils;
 
 import android.content.SharedPreferences;
 
-import com.world.cup.models.AccessToken;
+import com.world.cup.entities.AccessToken;
 
 public class TokenManager {
 

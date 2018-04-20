@@ -29,8 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.world.cup.models.AccessToken;
-import com.world.cup.models.ApiError;
+import com.world.cup.entities.AccessToken;
+import com.world.cup.network.ApiError;
 import com.world.cup.network.ApiService;
 import com.world.cup.network.RetrofitBuilder;
 import com.world.cup.utils.TokenManager;

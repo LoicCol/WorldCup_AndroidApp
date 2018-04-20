@@ -1,4 +1,4 @@
-package com.world.cup.models;
+package com.world.cup.network;
 
 import java.util.List;
 import java.util.Map;

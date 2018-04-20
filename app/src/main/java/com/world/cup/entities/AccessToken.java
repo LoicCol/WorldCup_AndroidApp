@@ -1,4 +1,4 @@
-package com.world.cup.models;
+package com.world.cup.entities;
 
 import com.squareup.moshi.Json;
 

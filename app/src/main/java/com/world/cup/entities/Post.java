@@ -1,4 +1,4 @@
-package com.world.cup.models;
+package com.world.cup.entities;
 
 public class Post {
 

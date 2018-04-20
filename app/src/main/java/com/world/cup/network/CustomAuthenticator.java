@@ -10,7 +10,7 @@ import okhttp3.Response;
 import okhttp3.Route;
 import retrofit2.Call;
 import com.world.cup.utils.TokenManager;
-import com.world.cup.models.AccessToken;
+import com.world.cup.entities.AccessToken;
 
 public class CustomAuthenticator implements Authenticator {
 

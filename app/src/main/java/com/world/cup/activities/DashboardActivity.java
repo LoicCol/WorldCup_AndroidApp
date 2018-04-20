@@ -15,8 +15,8 @@ import android.widget.ImageButton;
 import com.world.cup.R;
 import com.world.cup.adapters.TestAdapter;
 import com.world.cup.interfaces.OnRecyclerItemClick;
-import com.world.cup.models.Match;
-import com.world.cup.models.Team;
+import com.world.cup.entities.Game;
+import com.world.cup.entities.Team;
 import com.world.cup.utils.TokenManager;
 
 import java.sql.Date;
@@ -40,7 +40,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     @BindView(R.id.disconnect)
     ImageButton disconnect;
 
-    private List<Match> test;
+    private List<Game> test;
     private TokenManager tokenManager;
 
     @Override
@@ -60,9 +60,9 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        test = new ArrayList<Match>();
+        test = new ArrayList<Game>();
         for (int i = 0; i < 100; i++) {
-            test.add(new Match(new Date(900270000), "Poule A", new Team("France"), new Team("Brasil"), 0, 0));
+            test.add(new Game("20/02/2018 15:45", "Poule A", new Team("France"), new Team("Brasil"), 0, 0));
         }
 
         TestAdapter adapter = new TestAdapter(test, this);
