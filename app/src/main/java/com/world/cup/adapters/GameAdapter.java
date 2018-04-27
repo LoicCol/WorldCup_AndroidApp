@@ -21,11 +21,11 @@ import butterknife.ButterKnife;
  * Created by loiccol on 30/03/18.
  */
 
-public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     private List<Game> mTeamList;
     private static OnRecyclerItemClick mRecyclerItemClickListener;
 
-    public TestAdapter(List<Game> teamList, OnRecyclerItemClick recyclerItemClick) {
+    public GameAdapter(List<Game> teamList, OnRecyclerItemClick recyclerItemClick) {
         mTeamList = teamList;
         mRecyclerItemClickListener = recyclerItemClick;
     }
@@ -39,7 +39,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GameAdapter.ViewHolder holder, int position) {
         holder.team1.setText(mTeamList.get(position).getHomeTeam().getName());
         holder.team2.setText(mTeamList.get(position).getAwayTeam().getName());
         holder.team1Img.setImageResource(R.drawable.ic_launcher_foreground);
@@ -65,6 +65,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         TextView score;
         @BindView(R.id.date)
         TextView date;
+
 
         ViewHolder(View view) {
             super(view);

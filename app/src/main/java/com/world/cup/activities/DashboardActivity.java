@@ -9,22 +9,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.world.cup.R;
-import com.world.cup.adapters.TestAdapter;
+import com.world.cup.adapters.GameAdapter;
 import com.world.cup.interfaces.OnRecyclerItemClick;
+import com.world.cup.network.ApiService;
 import com.world.cup.entities.Game;
-import com.world.cup.entities.Team;
+import com.world.cup.network.RetrofitBuilder;
+import com.world.cup.responses.GamesResponse;
 import com.world.cup.utils.TokenManager;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity implements OnRecyclerItemClick {
 
@@ -40,8 +45,10 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     @BindView(R.id.disconnect)
     ImageButton disconnect;
 
-    private List<Game> test;
+    private List<Game> games;
     private TokenManager tokenManager;
+    private ApiService service;
+    private Call<GamesResponse> callGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +67,10 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        test = new ArrayList<Game>();
-        for (int i = 0; i < 100; i++) {
-            test.add(new Game("20/02/2018 15:45", "Poule A", new Team("France"), new Team("Brasil"), 0, 0));
-        }
+        games = new ArrayList<>();
 
-        TestAdapter adapter = new TestAdapter(test, this);
-        recyclerView.setAdapter(adapter);
+        service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
+        getGamesResponse();
 
         disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,9 +94,9 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     public void onClick(View view, int position, boolean isLongClick) {
         String stringToDisplay = "";
         if (isLongClick) {
-            stringToDisplay = "Long clique sur " + test.get(position);
+            stringToDisplay = "Long clique sur " + games.get(position);
         } else {
-            stringToDisplay = "Petit clique sur " + test.get(position);
+            stringToDisplay = "Petit clique sur " + games.get(position);
         }
 
         Snackbar snackbar = Snackbar
@@ -128,6 +132,39 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
+        }
+    }
+
+    public void getGamesResponse(){
+        callGame = service.games();
+        callGame.enqueue(new Callback<GamesResponse>() {
+            @Override
+            public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
+                Log.v(TAG, "onResponse : " + response);
+                if(response.isSuccessful()){
+                    seeetGameAdapater(response.body().getData());
+                    games = response.body().getData();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GamesResponse> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+    }
+
+    protected void seeetGameAdapater(List<Game> games) {
+        GameAdapter adapter = new GameAdapter(games, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(callGame != null){
+            callGame.cancel();
+            callGame = null;
         }
     }
 }

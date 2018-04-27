@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()) {
                         tokenManager.saveToken(response.body());
-                        startActivity(new Intent(LoginActivity.this, PostActivity.class));
+                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                         finish();
                     } else {
                         if (response.code() == 422) {

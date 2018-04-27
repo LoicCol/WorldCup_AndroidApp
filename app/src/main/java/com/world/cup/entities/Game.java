@@ -1,23 +1,26 @@
 package com.world.cup.entities;
 
+import android.util.Log;
+
 /**
  * Created by loiccol on 02/04/18.
  */
 
 public class Game {
+    private static final String TAG = "Game";
     private int id;
     private String dateTime;
     private String type;
     private String group;
     private Team home_team;
     private Team away_team;
-    private int score1;
-    private int score2;
+    private Integer score1;
+    private Integer score2;
     private Stadium stadium;
 
 
 
-    public Game(int id, String dateTime, String type, String group, Team team1, Team team2, int score1, int score2, Stadium stadium) {
+    public Game(int id, String dateTime, String type, String group, Team team1, Team team2, Integer score1, Integer score2, Stadium stadium) {
         this.id = id;
         this.setDateTime(dateTime);
         this.type = type;
@@ -39,7 +42,7 @@ public class Game {
         this.stadium = stadium;
     }
 
-    public Game(String dateTime, String group, Team team1, Team team2, int score1, int score2) {
+    public Game(String dateTime, String group, Team team1, Team team2, Integer score1, Integer score2) {
         this.setDateTime(dateTime);
         this.group = group;
         this.home_team = team1;
@@ -84,11 +87,11 @@ public class Game {
         return stadium;
     }
 
-    public void setScore1(int score1) {
+    public void setScore1(Integer score1) {
         this.score1 = score1;
     }
 
-    public void setScore2(int score2) {
+    public void setScore2(Integer score2) {
         this.score2 = score2;
     }
 

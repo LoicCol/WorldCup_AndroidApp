@@ -1,15 +1,26 @@
 package com.world.cup.entities;
 
+import com.world.cup.network.ApiService;
+import com.world.cup.utils.TokenManager;
+
+import retrofit2.Call;
+
 /**
  * Created by Admin on 19/04/2018.
  */
 
 public class User {
+
+
     private String name;
     private String pseudo;
     private String email;
     private int id;
     private int point;
+
+    public  User () {
+
+    }
 
     public String getName() {
         return name;
