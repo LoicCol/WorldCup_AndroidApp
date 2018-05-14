@@ -94,7 +94,9 @@ public class BetFragment extends DialogFragment {
                     }
                     if (event.getX() <= (score1.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
                         int score = Integer.parseInt(score1.getText().toString());
-                        score--;
+                        if (score > 0){
+                            score--;
+                        }
                         score1.setText(String.valueOf(score));
                         return true;
                     }
@@ -119,7 +121,9 @@ public class BetFragment extends DialogFragment {
                     }
                     if (event.getX() <= (score2.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
                         int score = Integer.parseInt(score2.getText().toString());
-                        score--;
+                        if (score > 0) {
+                            score--;
+                        }
                         score2.setText(String.valueOf(score));
                         return true;
                     }
@@ -131,6 +135,7 @@ public class BetFragment extends DialogFragment {
         betButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sendForecast();
+                dismiss();
             }
         });
 

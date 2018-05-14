@@ -92,11 +92,10 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        Log.v(TAG, "Case tab 0");
-                    case 1:
                         getGamesResponse();
-                    case 2:
-                        Log.v(TAG, "Case tab 2");
+                    case 1:
+                        Log.v(TAG, "Case tab 1");
+
                 }
             }
 
@@ -109,11 +108,9 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
             public void onTabReselected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        Log.v(TAG, "Case tab 0");
-                    case 1:
                         getGamesResponse();
-                    case 2:
-                        Log.v(TAG, "Case tab 2");
+                    case 1:
+                        Log.v(TAG, "Case tab 1");
                 }
             }
         });
