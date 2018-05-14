@@ -24,6 +24,11 @@
 
     <string name="dashboard">Dashboard</string>
     <string name="matchs">Matchs</string>
-    <string name="pronostics">Pronostiques</string>
+    <string name="pronostics">Pronostics</string>
     <string name="disconnect">X</string>
+    <string name="bet">Parier</string>
+    <string name="cancel">Annuler</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

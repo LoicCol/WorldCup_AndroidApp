@@ -1,5 +1,6 @@
 package com.world.cup.network;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -34,4 +35,11 @@ public interface ApiService {
     @GET("games")
     Call<GamesResponse> games();
 
+    @POST("forecasts")
+    @FormUrlEncoded
+    Call<ResponseBody> forecast(@Field("game_id") String gameId,
+                                @Field("score_team1") String score1,
+                                @Field("score_team1") String score2,
+                                @Field("team1_id") String team1_id,
+                                @Field("team2_id") String team2_id);
 }

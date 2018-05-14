@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by loiccol on 30/03/18.
@@ -52,7 +54,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         return mTeamList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.team1)
         TextView team1;
@@ -65,24 +67,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         TextView score;
         @BindView(R.id.date)
         TextView date;
+        @BindView(R.id.bet)
+        Button betButton;
 
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            view.setOnClickListener(this);
-            view.setOnLongClickListener(this);
+            betButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             mRecyclerItemClickListener.onClick(v, getAdapterPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            mRecyclerItemClickListener.onClick(v, getAdapterPosition(), true);
-            return true;
         }
     }
 }

@@ -2,15 +2,18 @@ package com.world.cup.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 
 import com.world.cup.R;
@@ -30,6 +33,8 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.support.constraint.ConstraintSet.WRAP_CONTENT;
 
 public class DashboardActivity extends AppCompatActivity implements OnRecyclerItemClick {
 
@@ -70,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
         games = new ArrayList<>();
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-        getGamesResponse();
+
 
         disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,28 +85,62 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
                 startActivity(intent);
             }
         });
-        /* tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch(tab.getPosition()) {
+                switch (tab.getPosition()) {
                     case 0:
-                  ....
+                        Log.v(TAG, "Case tab 0");
+                    case 1:
+                        getGamesResponse();
+                    case 2:
+                        Log.v(TAG, "Case tab 2");
                 }
-            } */
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        Log.v(TAG, "Case tab 0");
+                    case 1:
+                        getGamesResponse();
+                    case 2:
+                        Log.v(TAG, "Case tab 2");
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(View view, int position, boolean isLongClick) {
         String stringToDisplay = "";
-        if (isLongClick) {
-            stringToDisplay = "Long clique sur " + games.get(position);
-        } else {
-            stringToDisplay = "Petit clique sur " + games.get(position);
-        }
+        Log.v(TAG, games.get(position).toString());
 
-        Snackbar snackbar = Snackbar
-                .make(recyclerView, stringToDisplay, Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Game game = games.get(position);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        BetFragment frag = new BetFragment();
+        Bundle args = new Bundle();
+
+        args.putInt("gameId", game.getId());
+        args.putInt("team1_id", game.getHomeTeam().getId());
+        args.putInt("team2_id", game.getAwayTeam().getId());
+        args.putInt("score1", 0);
+        args.putInt("score2", 0);
+        args.putString("team1", game.getHomeTeam().getName());
+        args.putString("team2", game.getAwayTeam().getName());
+        frag.setArguments(args);
+
+        frag.show(fragmentManager, "BetDialog");
+
+        // Window window = frag.getDialog().getWindow().setLayout(WRAP);
     }
 
     @Override
@@ -142,7 +181,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
             public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
                 Log.v(TAG, "onResponse : " + response);
                 if(response.isSuccessful()){
-                    seeetGameAdapater(response.body().getData());
+                    setGameAdapater(response.body().getData());
                     games = response.body().getData();
                 }
             }
@@ -154,7 +193,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
         });
     }
 
-    protected void seeetGameAdapater(List<Game> games) {
+    protected void setGameAdapater(List<Game> games) {
         GameAdapter adapter = new GameAdapter(games, this);
         recyclerView.setAdapter(adapter);
     }

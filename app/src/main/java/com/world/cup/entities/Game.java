@@ -51,6 +51,21 @@ public class Game {
         this.score2 = score2;
     }
 
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", dateTime='" + dateTime + '\'' +
+                ", type='" + type + '\'' +
+                ", group='" + group + '\'' +
+                ", home_team=" + home_team.toString() +
+                ", away_team=" + away_team.toString() +
+                ", score1=" + score1 +
+                ", score2=" + score2 +
+                ", stadium=" + stadium +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

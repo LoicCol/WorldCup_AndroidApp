@@ -11,6 +11,17 @@ public class Team {
     private String logoCode;
     private int points;
 
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", group='" + group + '\'' +
+                ", logoCode='" + logoCode + '\'' +
+                ", points=" + points +
+                '}';
+    }
+
     public Team(int id, String name, String group, String logoCode, int points) {
         this.id = id;
         this.name = name;
