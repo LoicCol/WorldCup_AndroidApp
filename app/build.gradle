@@ -40,4 +40,6 @@ dependencies {
     compile 'com.android.support:support-annotations:27.1.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    compile 'com.michaelfotiadis:android-country-flags:1.0.3'
+
 }

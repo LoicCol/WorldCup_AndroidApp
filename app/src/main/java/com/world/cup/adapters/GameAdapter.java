@@ -1,5 +1,7 @@
 package com.world.cup.adapters;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import com.world.cup.R;
 import com.world.cup.interfaces.OnRecyclerItemClick;
 import com.world.cup.entities.Game;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,6 +29,7 @@ import butterknife.OnClick;
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     private List<Game> mTeamList;
     private static OnRecyclerItemClick mRecyclerItemClickListener;
+    private Context context;
 
     public GameAdapter(List<Game> teamList, OnRecyclerItemClick recyclerItemClick) {
         mTeamList = teamList;
@@ -35,6 +39,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.match_item, parent, false);
         return new ViewHolder(v);
@@ -44,8 +49,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull GameAdapter.ViewHolder holder, int position) {
         holder.team1.setText(mTeamList.get(position).getHomeTeam().getName());
         holder.team2.setText(mTeamList.get(position).getAwayTeam().getName());
-        holder.team1Img.setImageResource(R.drawable.ic_launcher_foreground);
-        holder.team2Img.setImageResource(R.drawable.ic_launcher_foreground);
+        String flagTeam1 = "ic_list_country_" + mTeamList.get(position).getHomeTeam().getLogoCode();
+        int idTeam1 = context.getResources().getIdentifier(flagTeam1, "drawable", context.getPackageName());
+        holder.team1Img.setImageResource(idTeam1);
+        String flagTeam2 = "ic_list_country_" + mTeamList.get(position).getAwayTeam().getLogoCode();
+        int idTeam2 = context.getResources().getIdentifier(flagTeam2, "drawable", context.getPackageName());
+        holder.team2Img.setImageResource(idTeam2);
         holder.date.setText(mTeamList.get(position).getDateTime().toString());
     }
 
