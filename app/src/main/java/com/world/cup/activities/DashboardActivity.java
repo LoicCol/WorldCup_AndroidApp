@@ -76,6 +76,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
 
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
+        getGamesResponse();
 
         disconnect.setOnClickListener(new View.OnClickListener() {
             @Override

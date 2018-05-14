@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="128dp"
-    android:layout_margin="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="2dp"
     android:background="@color/colorPrimary">
 
     <TextView
@@ -79,8 +82,8 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:backgroundTint="@android:color/darker_gray"
         android:background="@android:color/darker_gray"
+        android:backgroundTint="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

@@ -57,11 +57,6 @@
             tools:tabTextColor="@android:color/background_light">
 
             <android.support.design.widget.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dashboard" />
-
-            <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/matchs" />
@@ -78,6 +73,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:background="@android:color/background_light"
         android:fadeScrollbars="true"
         android:scrollbars="vertical"
