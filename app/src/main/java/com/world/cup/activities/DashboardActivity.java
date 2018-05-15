@@ -18,10 +18,12 @@ import android.widget.ImageButton;
 
 import com.world.cup.R;
 import com.world.cup.adapters.GameAdapter;
+import com.world.cup.entities.Forecast;
 import com.world.cup.interfaces.OnRecyclerItemClick;
 import com.world.cup.network.ApiService;
 import com.world.cup.entities.Game;
 import com.world.cup.network.RetrofitBuilder;
+import com.world.cup.responses.ForecastResponse;
 import com.world.cup.responses.GamesResponse;
 import com.world.cup.utils.TokenManager;
 
@@ -54,6 +56,7 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
     private TokenManager tokenManager;
     private ApiService service;
     private Call<GamesResponse> callGame;
+    private Call<ForecastResponse> callForecasts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +190,31 @@ public class DashboardActivity extends AppCompatActivity implements OnRecyclerIt
             @Override
             public void onFailure(Call<GamesResponse> call, Throwable t) {
                 Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+    }
+
+    public  void getForecasts() {
+        callForecasts = service.forecasts();
+        callForecasts.enqueue(new Callback<ForecastResponse>() {
+            @Override
+            public void onResponse(Call<ForecastResponse> call, Response<ForecastResponse> response) {
+                if (response.isSuccessful()) {
+                    List<Forecast> forecasts = response.body().getData();
+                    for (Game game: games) {
+                        for (Forecast forecast: forecasts) {
+                            if (game.getId() == forecast.getGameId()) {
+                                game.setScore1(forecast.getScoreTeam1());
+                                game.setScore2(forecast.getScoreTeam2());
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ForecastResponse> call, Throwable t) {
+
             }
         });
     }

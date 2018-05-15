@@ -7,6 +7,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import com.world.cup.entities.AccessToken;
+import com.world.cup.responses.ForecastResponse;
 import com.world.cup.responses.GamesResponse;
 import com.world.cup.responses.PostResponse;
 import com.world.cup.responses.UserResponse;
@@ -34,6 +35,9 @@ public interface ApiService {
 
     @GET("games")
     Call<GamesResponse> games();
+
+    @GET("games")
+    Call<ForecastResponse> forecasts();
 
     @POST("forecasts")
     @FormUrlEncoded
